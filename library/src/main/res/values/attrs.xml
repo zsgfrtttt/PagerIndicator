@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="pager_indicator">
+        <attr name="indicatorColor" format="color"/>
+        <attr name="verticalPadding" format="dimension"/>
+        <attr name="horizontalPadding" format="dimension"/>
+        <attr name="android:textSize" format="dimension"/>
+    </declare-styleable>
+</resources>
