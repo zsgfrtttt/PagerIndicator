@@ -45,7 +45,7 @@ viewPager背景渐变指示器
         android:layout_height="wrap_content" />
 ```
 
-**2、布局容器IndicatorContainer**
+**2、绑定viewpager并设置Adapter**
 ```java
 container = findViewById(R.id.indicator_wrap);
         viewPager = findViewById(R.id.vp);
