@@ -2,8 +2,7 @@
 viewPager背景渐变指示器
 
 ### 效果图
-![滑动演示]
-(https://github.com/zsgfrtttt/PagerIndicator/tree/master/app/src/main/assets/a.gif)
+![滑动演示](https://github.com/zsgfrtttt/PagerIndicator/blob/master/app/src/main/assets/a.gif)
 
 
 ### 引入依赖 
