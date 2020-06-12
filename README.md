@@ -23,7 +23,7 @@ viewPager背景渐变指示器
 
 ### 基本使用
 
-**1、继承GroupedRecyclerViewAdapter**
+**1、布局容器IndicatorContainer**
 
 ```xml
  <com.indicator.library.IndicatorContainer
@@ -43,4 +43,29 @@ viewPager背景渐变指示器
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+```
+
+**2、布局容器IndicatorContainer**
+```java
+container = findViewById(R.id.indicator_wrap);
+        viewPager = findViewById(R.id.vp);
+        container.bind(viewPager).setAdapter(new IndicatorAdapter() {
+            @NonNull
+            @Override
+            public List<String> getTitle() {
+                return list;
+            }
+        });
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+        });
 ```
