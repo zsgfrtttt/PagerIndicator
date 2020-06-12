@@ -2,7 +2,7 @@
 viewPager背景渐变指示器
 
 ### 效果图
-(https://github.com/donkingliang/GroupedRecyclerViewAdapter/blob/master/GroupedRecyclerViewAdapter%E6%BC%94%E7%A4%BA%E5%9B%BE/%E5%88%86%E7%BB%84%E7%9A%84%E5%88%97%E8%A1%A8.jpg) 
+(https://github.com/zsgfrtttt/PagerIndicator/tree/master/app/src/main/assets/a.gif)
 
 
 ### 引入依赖 
@@ -17,7 +17,7 @@ viewPager背景渐变指示器
 ```
 在Module的build.gradle在添加以下代码
 ```
-	implementation 'com.github.donkingliang:GroupedRecyclerViewAdapter:2.3.0'
+	implementation 'com.github.zsgfrtttt:PagerIndicator:1.0.2'
 ```
 **注意：** 依赖迁移至Androidx
 
