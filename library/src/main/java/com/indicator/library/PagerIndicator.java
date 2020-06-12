@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -17,7 +18,7 @@ public class PagerIndicator extends View {
     private RectF mRect;
 
     public PagerIndicator(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public PagerIndicator(Context context, @Nullable AttributeSet attrs) {
@@ -32,6 +33,15 @@ public class PagerIndicator extends View {
         mPaint.setColor(Color.parseColor("#666666"));
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (mRect != null) {
+            widthMeasureSpec = MeasureSpec.makeMeasureSpec((int) mRect.width(), MeasureSpec.getMode(widthMeasureSpec));
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec((int) mRect.height(), MeasureSpec.getMode(heightMeasureSpec));
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     public void setColor(int color) {
         mPaint.setColor(color);
     }
@@ -39,9 +49,8 @@ public class PagerIndicator extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mRountRadis = Math.min(w,h)/2;
+        mRountRadis = Math.min(w, h) / 2;
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -50,6 +59,6 @@ public class PagerIndicator extends View {
         mRect.right = getWidth();
         mRect.top = 0;
         mRect.bottom = getHeight();
-        canvas.drawRoundRect(mRect,mRountRadis,mRountRadis,mPaint);
+        canvas.drawRoundRect(mRect, mRountRadis, mRountRadis, mPaint);
     }
 }

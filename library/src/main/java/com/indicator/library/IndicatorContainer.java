@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,40 +77,46 @@ public class IndicatorContainer extends FrameLayout {
             if (!title.isEmpty()) {
                 mViewPager.setOffscreenPageLimit(title.size());
             }
-            for (int i = 0; i < title.size(); i++) {
-                final int index = i;
-                PagerTitleView view = new PagerTitleView(getContext());
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                view.setText(title.get(i));
-                view.setTextSize(10);
-                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
-                view.setSelectColorRes(mAdapter.getSelectColorRes());
-                view.setUnSelectColorRes(mAdapter.getUnSelectColorRes());
-                view.setVerticalAndHorizontalPadding(mVerticalPadding, mHorizontalPadding);
-                view.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mIsSelecting = true;
-                        mViewPager.setCurrentItem(index);
-                    }
-                });
-                mTitleLayout.addView(view, params);
-                mTitleViews.add(view);
-            }
-
+            addTitleView(title);
+            addIndicatorView();
         }
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        if (mAdapter != null) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            PagerIndicator indicator = new PagerIndicator(getContext());
-            indicator.setColor(mIndicatorColor);
-            mIndicatorLayout.addView(indicator, params);
-            mHpler = new IndicatorScrollHelper(indicator, this);
-            mHpler.onPageSelected(mCurrentIndex);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        mHpler.onPageScrolled(mCurrentIndex,0f);
+    }
+
+    private void addIndicatorView() {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        PagerIndicator indicator = new PagerIndicator(getContext());
+        indicator.setColor(mIndicatorColor);
+        mIndicatorLayout.addView(indicator,params);
+        mHpler = new IndicatorScrollHelper(indicator, this);
+        mHpler.onPageSelected(mCurrentIndex);
+    }
+
+    private void addTitleView(List<String> title) {
+        for (int i = 0; i < title.size(); i++) {
+            final int index = i;
+            PagerTitleView view = new PagerTitleView(getContext());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            view.setText(title.get(i));
+            view.setTextSize(10);
+            view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+            view.setSelectColorRes(mAdapter.getSelectColorRes());
+            view.setUnSelectColorRes(mAdapter.getUnSelectColorRes());
+            view.setVerticalAndHorizontalPadding(mVerticalPadding, mHorizontalPadding);
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mIsSelecting = true;
+                    mViewPager.setCurrentItem(index);
+                }
+            });
+            mTitleLayout.addView(view, params);
+            mTitleViews.add(view);
         }
     }
 
